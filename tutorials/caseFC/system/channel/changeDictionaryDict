@@ -1,0 +1,178 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.1                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changePatchTypeDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dictionaryReplacement
+{
+    U
+    {
+        internalField   uniform (0.01 0 0);
+        boundaryField
+        {
+            inlet
+            {
+                type            fixedValue;
+                value           uniform ( 0.01 0 0 );
+            }
+
+            outlet
+            {
+                type            inletOutlet;
+                inletValue      uniform ( 0 0 0 );
+            }
+
+            wall
+            {
+                type            fixedValue;
+                value           uniform ( 0 0 0 );
+            }
+
+            channel_to_LIB
+            {
+                type            fixedValue;
+                value           uniform (0 0 0);
+            }
+        }
+    }
+
+    T
+    {
+        internalField   uniform 300;
+        boundaryField
+        {
+            inlet
+            {
+                type            fixedValue;
+                value           uniform 300;
+            }
+
+            outlet
+            {
+                type            zeroGradient;
+            }
+
+            wall
+            {
+                type            zeroGradient;
+            }
+
+            channel_to_LIB
+            {
+                type            solidWallMixedTemperatureCoupled;
+                neighbourRegionName LIB;
+                neighbourPatchName LIB_to_channel;
+                neighbourFieldName T;
+                Kappa           Kappa;
+                value           uniform 300;
+            }
+        }
+    }
+
+    epsilon
+    {
+        // Set the value on all bc to non-zero. Not used in simulation
+        // since zeroGradient; only used in initialisation.
+        internalField   uniform 0.01;
+
+        boundaryField
+        {
+            inlet
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+
+            outlet
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+
+            wall
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+
+            channel_to_LIB
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+        }
+    }
+
+    k
+    {
+        internalField   uniform 0.1;
+        boundaryField
+        {
+            inlet
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+
+            outlet
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+
+            wall
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+
+            channel_to_LIB
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+        }
+    }
+
+    p
+    {
+        boundaryField
+        {
+            inlet
+            {
+                type            zeroGradient;
+            }
+
+            outlet
+            {
+                type            fixedValue;
+                value           uniform 0;
+            }
+
+            wall
+            {
+                type            zeroGradient;
+            }
+
+            channel_to_LIB
+            {
+                type            zeroGradient;
+            }
+        }
+    }
+
+}
+
+
+// ************************************************************************* //
