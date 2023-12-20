@@ -1,0 +1,184 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.1                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changePatchTypeDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dictionaryReplacement
+{
+    U
+    {
+        internalField   uniform (1.0e-8 0 0);
+        boundaryField
+        {
+            top
+            {
+                type            fixedValue;
+                value           uniform (0 0 0);
+            }
+
+            bottom
+            {
+                type            fixedValue;
+                value           uniform (0 0 0);
+            }
+
+            wall
+            {
+                type            fixedValue;
+                value           uniform (0 0 0);
+            }
+
+            PCM_to_channel
+            {
+                type            fixedValue;
+                value           uniform (0 0 0);
+            }
+        }
+    }
+
+    T
+    {
+        internalField   uniform 300;
+        boundaryField
+        {
+            top
+            {
+                type            zeroGradient;
+            }
+
+            bottom
+            {
+                type            zeroGradient;
+            }
+
+            wall
+            {
+                type            zeroGradient;
+            }
+
+            PCM_to_channel
+            {
+                type            solidWallMixedTemperatureCoupled;
+                neighbourRegionName channel;
+                neighbourPatchName channel_to_PCM;
+                neighbourFieldName T;
+                Kappa           Kappa;
+                value           uniform 300;
+            }
+        }
+    }
+
+    epsilon
+    {
+        // Set the value on all bc to non-zero. Not used in simulation
+        // since zeroGradient; only used in initialisation.
+        internalField   uniform 0.01;
+
+        boundaryField
+        {
+            top
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+
+            bottom
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+
+            wall
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+
+            PCM_to_channel
+            {
+                type            zeroGradient;
+                value           uniform 0.01;
+            }
+        }
+    }
+
+    k
+    {
+        internalField   uniform 0.1;
+        boundaryField
+        {
+            top
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+
+            bottom
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+
+            wall
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+
+            PCM_to_channel
+            {
+                type            zeroGradient;
+                value           uniform 0.1;
+            }
+        }
+    }
+
+    p
+    {
+        boundaryField
+        {
+            top
+            {
+                type            buoyantPressure;
+                rho             rhok;
+                value           uniform 0;
+            }
+
+            bottom
+            {
+                type            buoyantPressure;
+                rho             rhok;
+                value           uniform 0;
+            }
+
+            wall
+            {
+                type            buoyantPressure;
+                rho             rhok;
+                value           uniform 0;
+            }
+
+            PCM_to_channel
+            {
+                type            buoyantPressure;
+                rho             rhok;
+                value           uniform 0;
+            }
+        }
+    }
+
+}
+
+
+// ************************************************************************* //
