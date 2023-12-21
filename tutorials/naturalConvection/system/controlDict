@@ -19,7 +19,7 @@ libs
     "liblduSolvers.so"
 )
 
-application     chtMultiRegionPCMFoamNew;
+application     chtSolidLiquidPCM4Foam;
 
 startFrom       latestTime;
 
