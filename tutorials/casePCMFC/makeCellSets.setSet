@@ -1,4 +1,0 @@
-cellSet PCM new boxToCell (-0.01 -0.03 -0.01) (0.01 0.03 0.01) 0.01
-cellSet channel clear
-cellSet channel add cellToCell PCM
-cellSet channel invert
