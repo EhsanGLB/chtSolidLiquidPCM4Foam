@@ -1,0 +1,99 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.1                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changePatchTypeDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dictionaryReplacement
+{
+    T
+    {
+        internalField   uniform 300;
+
+        boundaryField
+        {
+            wall
+            {
+                type            fixedValue;
+                value           uniform 400;
+            }
+
+            hotBlock_to_channel
+            {
+                type            solidWallMixedTemperatureCoupled;
+                neighbourRegionName channel;
+                neighbourPatchName channel_to_hotBlock;
+                neighbourFieldName T;
+                Kappa           Kappa;
+                value           uniform 300;
+            }
+        }
+    }
+
+    rho
+    {
+        internalField   uniform 8000;
+
+        boundaryField
+        {
+            wall
+            {
+                type            zeroGradient;
+            }
+
+            hotBlock_to_channel
+            {
+                type            zeroGradient;
+            }
+        }
+    }
+
+    Kappa
+    {
+        internalField   uniform 80;
+
+        boundaryField
+        {
+            wall
+            {
+                type            zeroGradient;
+            }
+
+            hotBlock_to_channel
+            {
+                type            zeroGradient;
+            }
+        }
+    }
+
+    cp
+    {
+        internalField   uniform 450;
+
+        boundaryField
+        {
+            wall
+            {
+                type            zeroGradient;
+            }
+
+            hotBlock_to_channel
+            {
+                type            zeroGradient;
+            }
+        }
+    }
+}
+
+
+// ************************************************************************* //
