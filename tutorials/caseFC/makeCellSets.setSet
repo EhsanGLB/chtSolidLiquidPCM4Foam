@@ -1,4 +1,0 @@
-cellSet hotBlock new boxToCell (-0.01 -0.03 -0.01) (0.01 0.03 0.01) 0.01
-cellSet channel clear
-cellSet channel add cellToCell hotBlock
-cellSet channel invert
