@@ -1,4 +1,4 @@
-//for (int i=0; i<10; i++ ) // added
+for (int j=0; j<7; j++ ) // added
 {
     volScalarField kappaEff( "kappaEff", turb.nu()/Pr + turb.nut()/Prt );
     Kappa = kappaEff*rho*Cp;
