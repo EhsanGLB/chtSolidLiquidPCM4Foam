@@ -1,6 +1,5 @@
-//for (int i=0; i<10; i++ ) // added
+for (int j=0; j<7; j++ ) // added
 {
-
     volScalarField gammaT ("gammaT", hm*4.0*exp(-pow(4.0*(T-Tm)/Tmr,2))/Foam::sqrt(mathematicalConstant::pi)/Tmr); //added
     volScalarField kappaEff( "kappaEff", turb.nu()/Pr + turb.nut()/Prt );
     Kappa = kappaEff*rho*Cp;
@@ -19,5 +18,4 @@
 
     rhok = 1.0 - beta*(T - TRef);
     gamma = 0.5 * erf( 4.0 * ( T - Tm ) / Tmr ) + scalar(0.5);
-
 }
